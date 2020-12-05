@@ -63,7 +63,7 @@ class Fibonacci:
         if n <= 2:
             return 1
         else:
-            return Fibonacci.recursive(n - 1) + Fibonacci.recursive(n - 2)
+            return Fibonacci.dp_lru_cache(n - 1) + Fibonacci.dp_lru_cache(n - 2)
 
     @staticmethod
     @time_this()
