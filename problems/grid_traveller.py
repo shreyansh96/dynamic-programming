@@ -8,6 +8,7 @@ In how many ways can you travel to the goal on a grid with dimensions m*n?
 """
 from functools import lru_cache, partial
 from utils.decorators import time_this
+import numpy as np
 
 
 class GridTraveller:
@@ -17,6 +18,7 @@ class GridTraveller:
             "dp_traverse_child": partial(self.dp_traverse_child, m, n),
             "dp_reduce_grid": partial(self.dp_reduce_grid, m, n),
             "dp_lru_cache": partial(self.dp_lru_cache, m, n),
+            "dp_tabulation": partial(self.dp_tabulation, m, n),
         }
 
     @staticmethod
@@ -69,7 +71,7 @@ class GridTraveller:
         """
         grid_traveller(m,n) == grid_traveller(n,m) (Symmetric)
         Time Complexity: O(nm)
-        Space Complexity: O(n+m)
+        Space Complexity: O(nm)
         """
         if grid_value is None:
             grid_value = {}
@@ -99,6 +101,25 @@ class GridTraveller:
                GridTraveller.dp_lru_cache(min(m, n - 1), max(m, n - 1))
 
     @staticmethod
+    def dp_tabulation(m, n, grid_value=None):
+        """
+        grid_traveller(m,n) == grid_traveller(n,m) (Symmetric)
+        Time Complexity: O(nm)
+        Space Complexity: O(nm)
+        """
+        grid_value_table = np.zeros((m + 1, n + 1), int)
+        grid_value_table[1][1] = 1
+
+        for i in range(m + 1):
+            for j in range(n + 1):
+                if i + 1 <= m:
+                    grid_value_table[i + 1][j] += grid_value_table[i][j]
+                if j + 1 <= n:
+                    grid_value_table[i][j + 1] += grid_value_table[i][j]
+        # print(grid_value_table)
+        return grid_value_table[m][n]
+
+    @staticmethod
     @time_this()
     def run(func):
         print(f"Solution: {func()}")
@@ -108,9 +129,9 @@ class GridTraveller:
         print("\nSolutions to Grid Traveller\n")
 
         for name, solution in self.solutions.items():
-            print(f'Algo-Name: {name} {" -"*90}')
+            print(f'Algo-Name: {name} {" -" * 90}')
             self.run(solution)
-            print('-'*100)
+            print('-' * 100)
 
 
 GridTraveller(10, 10).execute_all()
