@@ -15,6 +15,7 @@ class Fibonacci:
             "recursive": partial(self.recursive, n),
             "dynamic_programming": partial(self.dp, n),
             "dp_lru_cache": partial(self.dp_lru_cache, n),
+            "dp_tabulation": partial(self.dp_tabulation, n),
         }
 
     @staticmethod
@@ -64,6 +65,20 @@ class Fibonacci:
             return 1
         else:
             return Fibonacci.dp_lru_cache(n - 1) + Fibonacci.dp_lru_cache(n - 2)
+
+    @staticmethod
+    def dp_tabulation(n):
+        """
+        Time complexity: O(N)
+        Space Complexity: O(N)
+
+        :param n:
+        :return:
+        """
+        fib_seq = [0, 1]
+        for i in range(2, n + 1):
+            fib_seq.append(fib_seq[i - 1] + fib_seq[i - 2])
+        return fib_seq[n]
 
     @staticmethod
     @time_this()
