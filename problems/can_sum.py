@@ -26,6 +26,8 @@ class CanSum:
             # "recursive": partial(self.recursive, target_sum, numbers),
             "dynamic_programming": partial(self.dp, target_sum, numbers),
             "dp_lru_cache": partial(self.dp_lru_cache, target_sum, tuple(numbers)),
+            "dp_tabulation": partial(self.dp_tabulation, target_sum, numbers),
+
         }
 
     @staticmethod
@@ -86,6 +88,21 @@ class CanSum:
         return 0
 
     @staticmethod
+    def dp_tabulation(target_sum, array):
+        """
+        Time complexity: O(N*M)
+        Space Complexity: O(M)
+        """
+        table = [0] * (target_sum + 1)
+        table[0] = 1
+        for i in range(target_sum+1):
+            for element in array:
+                if table[i] and i + element <= target_sum:
+                    table[i + element] = 1
+        # print(table)
+        return table[target_sum]
+
+    @staticmethod
     @time_this()
     def run(func):
         print(f"Solution: {func()}")
@@ -100,6 +117,6 @@ class CanSum:
             print('-' * 100)
 
 
-CanSum(7, [2, 4]).execute_all()
+CanSum(7, [2, 4, 1]).execute_all()
 CanSum(101, [5, 2, 4, 8]).execute_all()
-# CanSum(300, [7, 14]).execute_all()
+CanSum(300, [7, 14]).execute_all()
