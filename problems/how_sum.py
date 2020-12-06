@@ -1,4 +1,3 @@
-
 """
 Problem Statement:
 Write a function howSum(targetSum, numbers) that takes in a target sum and an array
@@ -29,9 +28,9 @@ from utils.decorators import time_this
 class HowSum:
     def __init__(self, target_sum, numbers):
         self.solutions = {
-            "recursive": partial(self.recursive, target_sum, numbers),
+            # "recursive": partial(self.recursive, target_sum, numbers),
             "dynamic_programming": partial(self.dp, target_sum, numbers),
-            "dp_lru_cache": partial(self.dp_lru_cache, target_sum, tuple(numbers)),
+            "dp_tabulation": partial(self.dp_tabulation, target_sum, numbers)
         }
 
     @staticmethod
@@ -80,31 +79,46 @@ class HowSum:
                 element_tree.append(element)
                 return element_tree
         memo[target_sum] = 0
-        element_tree = []
+        element_tree = None
         return element_tree
 
-
     @staticmethod
-    @lru_cache
-    def dp_lru_cache(target_sum, array, element_tree=None):
+    def dp_tabulation(target_sum, array):
         """
         Time complexity: O(N*M*M)
         Space Complexity: O(M^2)
         """
-        if element_tree is None:
-            element_tree = []
-        for element in array:
-            new_sum = target_sum - element
-            if new_sum < 0:
-                continue
-            elif new_sum == 0:
-                element_tree.append(element)
-                return element_tree
-            if HowSum.recursive(new_sum, array, element_tree):
-                element_tree.append(element)
-                return element_tree
-        element_tree = []
-        return element_tree
+        table = [None for _ in range(target_sum + 1)]
+        table[0] = []
+        for i in range(target_sum + 1):
+            if table[i] is not None:
+                for element in array:
+                    next_element = i + element
+                    if next_element <= target_sum:
+                        table[next_element] = table[i]+[element]
+                    if table[target_sum] is not None:
+                        return table[target_sum]
+        # print(table)
+        return table[target_sum]
+
+    @staticmethod
+    def dp_tabulation_all_possibilities(target_sum, array):
+        # bonus solution
+        table = [None for _ in range(target_sum + 1)]
+        table[0] = [[]]
+        for i in range(target_sum + 1):
+            if table[i] is not None:
+                for element in array:
+                    next_element = i + element
+                    if next_element <= target_sum:
+                        for way in table[i]:
+                            # print(table[i])
+                            if table[next_element] is None:
+                                table[next_element] = []
+                            table[next_element].append(way + [element])
+
+        print(table)
+        return table[target_sum]
 
     @staticmethod
     @time_this()
@@ -123,4 +137,4 @@ class HowSum:
 
 HowSum(7, [2, 4]).execute_all()
 HowSum(101, [5, 2, 4, 8]).execute_all()
-# HowSum(300, [7, 14]).execute_all()
+HowSum(300, [7, 14]).execute_all()
