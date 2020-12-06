@@ -12,6 +12,18 @@
 - Add a base case to return memo values, leaf nodes of the tree.
 - Store return values into the memo.
 
+#### Tabulation Recipe
+
+1. Visualize the problem as a table
+2. Size the table based on the inputs
+3. Initialize the table with default values (For python, if necessary)
+4. Seed the trivial answer into the table (Initiate value(s) in
+the table which will act as activation for others)
+5. Iterate through the table
+6. Fill further positions based on the current position
+(this can also be modified to fill current position based on past values)
+
+
 
 Problem Statements taken from [Learn to Solve Algorithmic Problems & Coding Challenges by Alvin Zablan](https://youtu.be/oBt53YbR9Kk)
 
