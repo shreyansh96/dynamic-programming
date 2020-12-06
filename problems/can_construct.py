@@ -11,8 +11,8 @@ canConstruct("abcde", ["ab", "c", "cde"]) -> 1
 
 
 Hints for time complexity:
-Considering targetSum = M and number of elements = N
-the worst case will be when one of the number in array is 1
+Considering target is of length M and number of elements is N in wordBank
+the worst case will be when words in wordBank is of length 1
 so the height of the tree will be M
 for every node there will be N branches.
 """
@@ -33,7 +33,8 @@ class CanConstruct:
     def recursive(target, wordbank):
         """
         Time complexity: O(N^M*M)  M for finding string
-        Space Complexity: O(M)
+        Space Complexity: O(M^2) M Due to call stack and
+         M due to storing a string of len M (worstcase) for every call
         """
         if target == "":
             return True
@@ -47,8 +48,8 @@ class CanConstruct:
     @staticmethod
     def dp(target, wordbank, memo=None):
         """
-        Time complexity: O(N*M)
-        Space Complexity: O(M)
+        Time complexity: O(N*M^2)
+        Space Complexity: O(N*M)
         """
         if memo is None:
             memo = {}
@@ -60,7 +61,7 @@ class CanConstruct:
         for word in wordbank:
             if target.find(word) == 0:
                 updated_target = target[len(word):]
-                if CanConstruct.dp(updated_target, wordbank):
+                if CanConstruct.dp(updated_target, wordbank, memo):
                     memo[target] = False
                     return True
 
@@ -71,8 +72,8 @@ class CanConstruct:
     @lru_cache
     def dp_lru_cache(target, wordbank):
         """
-        Time complexity: O(N)
-        Space Complexity: O(N)
+        Time complexity: O(N*M^2)
+        Space Complexity: O(N*M)
         """
         if target == "":
             return True
@@ -101,3 +102,5 @@ class CanConstruct:
 CanConstruct("", ["any"]).execute_all()
 CanConstruct("abcde", ["ab", "c", "cde"]).execute_all()
 CanConstruct("kuchbhi", ["ha", "he", "hu", "bhi"]).execute_all()
+CanConstruct("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqe",
+             ["q", "qq", "qqq", "qqqq", "qqqqq", "qqqqqq"]).execute_all()
