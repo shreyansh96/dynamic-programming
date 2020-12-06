@@ -29,39 +29,44 @@ from utils.decorators import time_this
 class HowSum:
     def __init__(self, target_sum, numbers):
         self.solutions = {
-            # "recursive": partial(self.recursive, target_sum, numbers),
+            "recursive": partial(self.recursive, target_sum, numbers),
             "dynamic_programming": partial(self.dp, target_sum, numbers),
             "dp_lru_cache": partial(self.dp_lru_cache, target_sum, tuple(numbers)),
         }
 
     @staticmethod
-    def recursive(target_sum, array):
+    def recursive(target_sum, array, element_tree=None):
         """
-        Time complexity: O(N^M)
+        Time complexity: O(N^M*M)
         Space Complexity: O(M)
         """
+        if element_tree is None:
+            element_tree = []
         for element in array:
             new_sum = target_sum - element
             if new_sum < 0:
                 continue
             elif new_sum == 0:
-                return 1
-            if HowSum.recursive(new_sum, array):
-                return 1
-        return 0
+                element_tree.append(element)
+                return element_tree
+            if HowSum.recursive(new_sum, array, element_tree):
+                element_tree.append(element)
+                return element_tree
+        element_tree = []
+        return element_tree
 
     @staticmethod
     def dp(target_sum, array, memo=None, element_tree=None):
         """
-        Time complexity: O(N*M)
-        Space Complexity: O(M)
+        Time complexity: O(N*M*M)
+        Space Complexity: O(M^2)
         """
         if memo is None:
             memo = {}
             element_tree = []
         val = memo.get(target_sum)
         if val is not None:
-            return val, element_tree
+            return element_tree
         for element in array:
             new_sum = target_sum - element
             if new_sum < 0:
@@ -69,34 +74,37 @@ class HowSum:
             elif new_sum == 0:
                 memo[target_sum] = 1
                 element_tree.append(element)
-                return 1, element_tree
-            if HowSum.dp(new_sum, array, memo, element_tree)[0]:
+                return element_tree
+            if HowSum.dp(new_sum, array, memo, element_tree):
                 memo[target_sum] = 1
-                print(memo)
                 element_tree.append(element)
-
-                return 1, element_tree
+                return element_tree
         memo[target_sum] = 0
         element_tree = []
-        return 0, element_tree
+        return element_tree
 
 
     @staticmethod
     @lru_cache
-    def dp_lru_cache(target_sum, array):
+    def dp_lru_cache(target_sum, array, element_tree=None):
         """
-        Time complexity: O(N)
-        Space Complexity: O(N)
+        Time complexity: O(N*M*M)
+        Space Complexity: O(M^2)
         """
+        if element_tree is None:
+            element_tree = []
         for element in array:
             new_sum = target_sum - element
             if new_sum < 0:
                 continue
             elif new_sum == 0:
-                return 1
-            if HowSum.dp_lru_cache(new_sum, array):
-                return 1
-        return 0
+                element_tree.append(element)
+                return element_tree
+            if HowSum.recursive(new_sum, array, element_tree):
+                element_tree.append(element)
+                return element_tree
+        element_tree = []
+        return element_tree
 
     @staticmethod
     @time_this()
