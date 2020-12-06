@@ -1,5 +1,12 @@
 ## Dynamic Programming
 
+### Identifying a Dynamic Programming Problem
+- Notice any overlapping solutions
+- decide what is the trivially smallest input
+- Think recursively to use Memoization
+- Think iteratively to use Tabulation
+- Draw a strategy first!
+
 #### Memoization Recipe
 
 1. Develop a functional code.
