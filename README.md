@@ -1,6 +1,6 @@
 ## Dynamic Programming
 
-### Identifying a Dynamic Programming Problem
+### Identifying and Approaching a Dynamic Programming Problem
 - Notice any overlapping solutions
 - decide what is the trivially smallest input
 - Think recursively to use Memoization
