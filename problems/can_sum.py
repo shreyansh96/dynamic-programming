@@ -95,10 +95,11 @@ class CanSum:
         """
         table = [0] * (target_sum + 1)
         table[0] = 1
-        for i in range(target_sum+1):
-            for element in array:
-                if table[i] and i + element <= target_sum:
-                    table[i + element] = 1
+        for i in range(target_sum + 1):
+            if table[i]:
+                for element in array:
+                    if i + element <= target_sum:
+                        table[i + element] = 1
         # print(table)
         return table[target_sum]
 
