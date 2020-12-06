@@ -29,6 +29,8 @@ class BestSum:
             # "recursive": partial(self.recursive, target_sum, numbers),
             "dynamic_programming": partial(self.dp, target_sum, numbers),
             "dp_lru_cache": partial(self.dp_lru_cache, target_sum, tuple(numbers)),
+            "dp_tabulation": partial(self.dp_tabulation, target_sum, numbers)
+
         }
 
     @staticmethod
@@ -101,6 +103,28 @@ class BestSum:
         return shortest_tree
 
     @staticmethod
+    def dp_tabulation(target_sum, array):
+        """
+        Time complexity: O(N*M*M)
+        Space Complexity: O(M^2)
+        """
+        table = [None for _ in range(target_sum + 1)]
+        table[0] = []
+        for i in range(target_sum + 1):
+            if table[i] is not None:
+                for element in array:
+                    next_element = i + element
+                    if next_element <= target_sum:
+                        current_way = table[i] + [element]
+                        if table[next_element]:
+                            if len(table[next_element]) > len(current_way):
+                                table[next_element] = current_way
+                        else:
+                            table[next_element] = current_way
+        # print(table)
+        return table[target_sum]
+
+    @staticmethod
     @time_this()
     def run(func):
         print(f"Solution: {func()}")
@@ -115,7 +139,7 @@ class BestSum:
             print('-' * 100)
 
 
-# BestSum(7, [2, 4]).execute_all()
+BestSum(7, [2, 4]).execute_all()
 BestSum(7, [1, 4, 5]).execute_all()
 
 BestSum(100, [5, 2, 4, 25]).execute_all()
