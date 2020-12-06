@@ -47,12 +47,11 @@ class BestSum:
             combination = BestSum.recursive(new_sum, array)
             if combination:
                 combination += [element]
-                if not shortest_tree or len(shortest_tree)> len(combination):
+                if not shortest_tree or len(shortest_tree) > len(combination):
                     shortest_tree = combination
 
         return shortest_tree
 
-        
     @staticmethod
     def dp(target_sum, array, memo=None):
         """
@@ -74,10 +73,11 @@ class BestSum:
             combination = BestSum.dp(new_sum, array, memo)
             if combination:
                 combination += [element]
-                if not shortest_tree or len(shortest_tree)> len(combination):
+                if not shortest_tree or len(shortest_tree) > len(combination):
                     shortest_tree = combination
         memo[target_sum] = deepcopy(shortest_tree)
         return shortest_tree
+
     @staticmethod
     @lru_cache
     def dp_lru_cache(target_sum, array):
@@ -95,9 +95,7 @@ class BestSum:
             combination = BestSum.dp_lru_cache(new_sum, array)
             if combination:
                 combination += (element,)
-                # print(combination, target_sum)
                 if not shortest_tree or len(shortest_tree) > len(combination):
-                    # print(shortest_tree, combination)
                     shortest_tree = combination
 
         return shortest_tree
