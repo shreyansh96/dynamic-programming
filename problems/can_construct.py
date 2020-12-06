@@ -49,7 +49,7 @@ class CanConstruct:
     def dp(target, wordbank, memo=None):
         """
         Time complexity: O(N*M^2)
-        Space Complexity: O(N*M)
+        Space Complexity: O(M*2)
         """
         if memo is None:
             memo = {}
@@ -73,7 +73,7 @@ class CanConstruct:
     def dp_lru_cache(target, wordbank):
         """
         Time complexity: O(N*M^2)
-        Space Complexity: O(N*M)
+        Space Complexity: O(M^2)
         """
         if target == "":
             return True
