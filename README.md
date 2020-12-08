@@ -36,6 +36,19 @@ Problem Statements taken from [Learn to Solve Algorithmic Problems & Coding Chal
 
 Solutions in Python 3.9
 
+Follow this sequence for proper order of problems:
+
+1. [fibonacci.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/fibonacci.py)
+2. [grid_traveller.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/grid_traveller.py)
+3. [can_sum.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/can_sum.py)
+4. [how_sum.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/how_sum.py)
+5. [best_sum.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/best_sum.py)
+6. [can_construct.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/can_construct.py)
+7. [count_construct.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/count_construct.py)
+8. [all_construct.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/all_construct.py)
+
+Each file has problem statement mentionend in the docstring, and complexities mentioned in the solution.
+
 There are multiple solutions presented to the same problem, all solutions are encapsulated  in a class.
 
 By default it will run all the solutions and compare execution times.
