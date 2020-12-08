@@ -27,6 +27,7 @@ class CountConstruct:
             "recursive": partial(self.recursive, target, wordbank),
             "dynamic_programming": partial(self.dp, target, wordbank),
             "dp_lru_cache": partial(self.dp_lru_cache, target, tuple(wordbank)),
+            "dp_tabulation": partial(self.dp_tabulation, target, wordbank)
         }
 
     @staticmethod
@@ -83,6 +84,27 @@ class CountConstruct:
                 updated_target = target[len(word):]
                 count += CountConstruct.dp_lru_cache(updated_target, wordbank)
         return count
+
+    @staticmethod
+    def dp_tabulation(target, wordbank):
+        """
+        Time complexity: O(N*M^2)
+        Space Complexity: O(M)
+        """
+        table = [0]*(len(target)+1)
+        table[0] = 1
+        for i in range(len(target)+1):
+            if table[i]:
+                for word in wordbank:
+                    if target[i:i+len(word)] == word:
+                        next_place = i + len(word)
+                        if next_place <= len(target):
+                            table[next_place] += table[i]
+                            # print(target[:i], word, table[next_place])
+
+        # print(table)
+        return table[len(target)]
+
 
     @staticmethod
     @time_this()
