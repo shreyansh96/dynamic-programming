@@ -29,6 +29,7 @@ class CountConstruct:
             "recursive": partial(self.recursive, target, wordbank),
             "dynamic_programming": partial(self.dp, target, wordbank),
             "dp_lru_cache": partial(self.dp_lru_cache, target, tuple(wordbank)),
+            "dp_tabulation": partial(self.dp_tabulation, target, wordbank)
         }
 
     @staticmethod
@@ -81,7 +82,7 @@ class CountConstruct:
     @lru_cache
     def dp_lru_cache(target, wordbank):
         """
-        Time complexity: O(N^M)
+        Time complexity: O(N^M*M)
         Space Complexity: O(M)
         """
         if target == "":
@@ -96,6 +97,28 @@ class CountConstruct:
                         way.append(word)
                         all_ways.append(way)
         return all_ways
+
+    @staticmethod
+    def dp_tabulation(target, wordbank):
+        """
+        Time complexity: O(N^M*M)
+        Space Complexity: O(M)
+        """
+        table = [None for _ in range(len(target) + 1)]
+        table[0] = [[]]
+        for i in range(len(target)+1):
+            if table[i] is not None:
+                for word in wordbank:
+                    if target[i:i+len(word)] == word:
+                        next_place = i + len(word)
+                        if next_place <= len(target):
+                            for way in table[i]:
+                                if table[next_place] is None:
+                                    table[next_place] = []
+                                table[next_place].append(way + [word])
+
+        # print(table)
+        return table[len(target)]
 
     @staticmethod
     @time_this()
