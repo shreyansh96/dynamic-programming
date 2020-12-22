@@ -46,6 +46,7 @@ Follow this sequence for proper order of problems:
 6. [can_construct.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/can_construct.py)
 7. [count_construct.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/count_construct.py)
 8. [all_construct.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/all_construct.py)
+9. [longest_common_subsequence.py](https://github.com/shreyansh96/dynamic-programming/blob/main/problems/longest_common_subsequence.py)
 
 Each file has problem statement mentionend in the docstring, and complexities mentioned in the solution.
 
