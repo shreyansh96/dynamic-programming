@@ -34,21 +34,24 @@ class Fibonacci:
             return Fibonacci.recursive(n - 1) + Fibonacci.recursive(n - 2)
 
     @staticmethod
-    def dp(n: int, fibo_sequence: t.List[int] = None) -> int:
+    def dp(n: int, memo: dict = None) -> int:
         """
         Time complexity: O(N)
         Space Complexity: O(N)
         :param n:
-        :param fibo_sequence:
+        :param memo:
         :return:
         """
-        if fibo_sequence is None:
-            fibo_sequence = [1, 1]
-        if n > len(fibo_sequence):
-            fibo_sequence.append(Fibonacci.dp(n - 1, fibo_sequence) + Fibonacci.dp(n - 2, fibo_sequence))
-            return fibo_sequence[-1]
+        if memo is None:
+            memo = {}
+        val = memo.get(n)
+        if val:
+            return val
+        if n <= 2:
+            return 1
         else:
-            return fibo_sequence[n - 1]
+            memo[n] = Fibonacci.dp(n - 1, memo) + Fibonacci.dp(n - 2, memo)
+            return memo[n]
 
     @staticmethod
     @lru_cache
