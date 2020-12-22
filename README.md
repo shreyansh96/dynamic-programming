@@ -7,7 +7,7 @@
 - Think iteratively to use Tabulation
 - Draw a strategy first!
 
-#### Memoization Recipe
+#### Memoization (Top - Down) Recipe
 
 1. Develop a functional code.
 -  Visualize the problem as a tree.
@@ -19,7 +19,7 @@
 - Add a base case to return memo values, leaf nodes of the tree.
 - Store return values into the memo.
 
-#### Tabulation Recipe
+#### Tabulation (Bottom-Up) Recipe
 
 1. Visualize the problem as a table
 2. Size the table based on the inputs
@@ -32,7 +32,7 @@ the table which will act as activation for others)
 
 
 
-Problem Statements taken from [Learn to Solve Algorithmic Problems & Coding Challenges by Alvin Zablan](https://youtu.be/oBt53YbR9Kk)
+Some Problem Statements taken from [Learn to Solve Algorithmic Problems & Coding Challenges by Alvin Zablan](https://youtu.be/oBt53YbR9Kk)
 
 Solutions in Python 3.9
 
