@@ -1,5 +1,7 @@
 ## Dynamic Programming
 
+This repository was created for teaching or learning dynamic programming using problem statements. Along with the raw implementation, for using dynamic programming easily in real-life, an alternate solution using functools library is also provided.
+
 ### Identifying and Approaching a Dynamic Programming Problem
 - Notice any overlapping solutions
 - decide what is the trivially smallest input
@@ -19,7 +21,7 @@
 - Add a base case to return memo values, leaf nodes of the tree.
 - Store return values into the memo.
 
-#### Tabulation (Bottom-Up) Recipe
+#### Tabulation (Bottom - Up) Recipe
 
 1. Visualize the problem as a table
 2. Size the table based on the inputs
